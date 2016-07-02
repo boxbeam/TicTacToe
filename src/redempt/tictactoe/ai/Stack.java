@@ -53,7 +53,9 @@ public class Stack implements Serializable {
 	public Stack clone() {
 		Node[] nodes = new Node[9];
 		for (int i = 0; i < 9; i++) {
-			nodes[i] = this.nodes[i].clone();
+			if (this.nodes[i] != null) {
+				nodes[i] = this.nodes[i].clone();
+			}
 		}
 		return new Stack(state, nodes);
 	}
