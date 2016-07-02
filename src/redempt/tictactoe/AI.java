@@ -47,8 +47,10 @@ public class AI extends Player {
 		fitnesses += heuristic;
 		if (games >= 10) {
 			System.out.println("Average fitness for " + getTeam() + " is " + fitnesses);
-			board.lines.clear();
-			board.lines.add(getTeam() + " fitness: " + fitnesses);
+			synchronized (board.lock) {
+				board.lines.clear();
+				board.lines.add(getTeam() + " fitness: " + fitnesses);
+			}
 			if (fitnesses <= lastFitness) {
 				controller = lastState.clone();
 				if (evolve) {
