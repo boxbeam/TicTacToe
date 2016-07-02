@@ -44,7 +44,6 @@ public class AI extends Player {
 		games++;
 		turns = 0;
 		double heuristic = heuristic(turns, inARow, outcome);
-		System.out.println(getTeam() + " evaluated with a fitness of " + heuristic);
 		fitnesses += heuristic;
 		if (games >= 10) {
 			System.out.println("Average fitness for " + getTeam() + " is " + fitnesses);
