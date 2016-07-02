@@ -107,6 +107,7 @@ public class AIController implements Serializable {
 	public Piece getAction() {
 		double[][] probability = new double[3][3];
 		List<Place> probabilities = new ArrayList<>();
+		double highest = 0;
 		for (int x = 0; x < probability.length; x++) {
 			probability[x] = new double[3];
 			for (int y = 0; y < probability.length; y++) {
@@ -117,11 +118,12 @@ public class AIController implements Serializable {
 							probability[x][y] += node.getProbability(board);
 						}
 					}
-					long max = Math.round(probability[x][y] * 10);
-					if (max < 0) {
-						max = 0;
+					if (probability[x][y] == highest) {
+						probabilities.add(new Place(x, y));
 					}
-					for (int times = 0; times < max; times++) {
+					if (probability[x][y] > highest) {
+						probabilities.clear();
+						highest = probability[x][y];
 						probabilities.add(new Place(x, y));
 					}
 				}
