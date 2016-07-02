@@ -37,7 +37,7 @@ public class AI extends Player {
 	
 	@Override
 	public void win(int inARow) {
-		end(inARow, 1.5);
+		end(inARow, 2);
 	}
 	
 	public void end(int inARow, double outcome) {
@@ -72,7 +72,7 @@ public class AI extends Player {
 	
 	@Override
 	public void tie(int inARow) {
-		end(inARow, 1.2);
+		end(inARow, 1.5);
 	}
 	
 	@Override
