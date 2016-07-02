@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JPanel;
 
@@ -13,7 +13,7 @@ public class Board extends JPanel implements Serializable {
 	
 	private static final long serialVersionUID = -5210369600155619519L;
 	private State[][] pieces = new State[3][3];
-	public List<String> lines = new ArrayList<>();
+	public List<String> lines = new CopyOnWriteArrayList<>();
 	
 	public Board() {
 		this.setSize(500, 500);

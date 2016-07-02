@@ -75,7 +75,7 @@ public class AIController implements Serializable {
 			position = 0;
 		}
 		if (action == 0 || action == 1) {
-			stack.nodes[stack.nodeCount()] = new Node(stack.x, stack.y, state);
+			stack.nodes[stack.nodeCount() - 1] = new Node(stack.x, stack.y, state);
 		} else if (action == 2) {
 			stack.nodes[position] = null;
 		} else if (action == 3 || action == 4) {
