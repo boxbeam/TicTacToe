@@ -56,7 +56,14 @@ public class AIController implements Serializable {
 	}
 	
 	public AIController clone() {
-		return new AIController(stacks.clone(), board, state);
+		Stack[][] stacks = new Stack[3][3];
+		for (int x = 0; x < 3; x++) {
+			stacks[x] = new Stack[3];
+			for (int y = 0; y < 3; y++) {
+				stacks[x][y] = this.stacks[x][y].clone();
+			}
+		}
+		return new AIController(stacks, board, state);
 	}
 	
 	public void evolve() {

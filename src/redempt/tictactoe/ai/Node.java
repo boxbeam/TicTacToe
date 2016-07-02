@@ -29,6 +29,10 @@ public class Node implements Serializable {
 		this.probabilityOpponent = probabilityOpponent;
 	}
 	
+	public Node clone() {
+		return new Node(x, y, affectedx, affectedy, probabilityFree, probabilitySelf, probabilityOpponent, state);
+	}
+	
 	public Node(int x, int y, State state) {
 		this.state = state;
 		this.x = x;

@@ -31,6 +31,11 @@ public class Stack implements Serializable {
 		}
 	}
 	
+	public Stack(State state, Node[] nodes) {
+		this.state = state;
+		this.nodes = nodes;
+	}
+	
 	public Stack(State state) {
 		nodes = new Node[9];
 	}
@@ -43,6 +48,14 @@ public class Stack implements Serializable {
 			}
 		}
 		return count;
+	}
+	
+	public Stack clone() {
+		Node[] nodes = new Node[9];
+		for (int i = 0; i < 9; i++) {
+			nodes[i] = this.nodes[i].clone();
+		}
+		return new Stack(state, nodes);
 	}
 	
 }
