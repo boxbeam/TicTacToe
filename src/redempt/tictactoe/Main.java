@@ -52,7 +52,7 @@ public class Main {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				manager.turn();
+				manager.turn(true);
 			}
 			
 		});
@@ -123,6 +123,7 @@ public class Main {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
+				o.remove();
 				o = new AI(board, State.O, true);
 				o.controller.neutralize();
 				if (manager.player1.getTeam() == State.O) {
@@ -157,6 +158,7 @@ public class Main {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
+				x.remove();
 				x = new AI(board, State.X, false);
 				((AI) x).controller.neutralize();
 				if (manager.player1.getTeam() == State.X) {
@@ -177,6 +179,7 @@ public class Main {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
+				x.remove();
 				x = new SeriesAI(State.X, board);
 				if (manager.player1.getTeam() == State.X) {
 					manager.player1 = x;
@@ -196,6 +199,7 @@ public class Main {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
+				x.remove();
 				x = new AI(board, State.X, true);
 				((AI) x).controller.neutralize();
 				if (manager.player1.getTeam() == State.X) {
@@ -207,8 +211,28 @@ public class Main {
 			
 		});
 		board.add(learning);
+		JButton human = new JButton();
+		human.setSize(100, 50);
+		human.setText("Human");
+		human.setVisible(true);
+		human.setLocation(100, 350);
+		human.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				x.remove();
+				x = new HumanPlayer(State.X, board);
+				if (manager.player1.getTeam() == State.X) {
+					manager.player1 = x;
+				} else {
+					manager.player2 = x;
+				}
+			}
+			
+		});
+		board.add(human);
 		JCheckBox evolve = new JCheckBox();
-		evolve.setSize(100, 20);
+		evolve.setSize(100, 25);
 		evolve.setLocation(0, 350);
 		evolve.setText("Evolve");
 		Task task = new Task(new Runnable() {
@@ -232,8 +256,8 @@ public class Main {
 		board.add(evolve);
 		
 		JCheckBox autostopToggle = new JCheckBox();
-		autostopToggle.setSize(100, 20);
-		autostopToggle.setLocation(0, 370);
+		autostopToggle.setSize(100, 25);
+		autostopToggle.setLocation(0, 375);
 		autostopToggle.setText("Autostop");
 		autostopToggle.addMouseListener(new MouseAdapter() {
 			

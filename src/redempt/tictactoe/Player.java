@@ -30,4 +30,8 @@ public abstract class Player {
 	 
 	 public abstract Piece turn();
 	 
+	 public void remove() {
+		 
+	 }
+	 
 }

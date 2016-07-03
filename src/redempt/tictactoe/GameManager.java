@@ -8,8 +8,8 @@ public class GameManager {
 	Player player1;
 	Player player2;
 	Board board;
-	boolean turn = false;
-	boolean lastStarter = false;
+	State turn = State.O;
+	State lastStarter = State.O;
 	private Winner winner = Winner.IN_PROGRESS;
 	int player1inARow = 0;
 	int player2inARow = 0;
@@ -32,7 +32,7 @@ public class GameManager {
 					if (stop) {
 						break;
 					}
-					turn();
+					turn(false);
 					try {
 						Thread.sleep(0);
 					} catch (InterruptedException e) {
@@ -45,7 +45,23 @@ public class GameManager {
 		thread.start();
 	}
 	
-	public void turn() {
+	public void turn(boolean async) {
+		if (async) {
+			Thread thread = new Thread() {
+				
+				@Override
+				public void run() {
+					takeTurn();
+				}
+				
+			};
+			thread.start();
+		} else {
+			takeTurn();
+		}
+	}
+	
+	private void takeTurn() {
 		if (winner == Winner.X) {
 			if (player1.getTeam() == State.X) {
 				player1.win(player1inARow);
@@ -75,7 +91,7 @@ public class GameManager {
 			return;
 		}
 		Piece piece = null;
-		if (turn) {
+		if (turn == player1.getTeam()) {
 			piece = player2.turn();
 			player1.opponentTurn();
 		} else {
@@ -89,12 +105,12 @@ public class GameManager {
 		} else {
 			end();
 		}
-		turn = !turn;
+		turn = turn.getOpposite();
 	}
 	
 	public void end() {
 		board.clear();
-		lastStarter = !lastStarter;
+		lastStarter = lastStarter.getOpposite();
 		turn = lastStarter;
 		winner = Winner.IN_PROGRESS;
 		player1inARow = 0;
