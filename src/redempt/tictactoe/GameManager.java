@@ -25,15 +25,8 @@ public class GameManager {
 	public void start() {
 		Thread thread = new Thread() {
 			
-			long lastTime = System.currentTimeMillis();
-			
 			@Override
 			public void run() {
-				if (System.currentTimeMillis() - lastTime >= 1000) {
-					System.out.println("Games per second: " + games);
-					games = 0;
-					lastTime = System.currentTimeMillis();
-				}
 				board.clear();
 				while (true) {
 					if (stop) {
@@ -94,7 +87,6 @@ public class GameManager {
 			board.repaint();
 			winner = checkForWin(piece.getX(), piece.getY());
 		} else {
-			System.out.println("Game may be bugged... Resetting");
 			end();
 		}
 		turn = !turn;

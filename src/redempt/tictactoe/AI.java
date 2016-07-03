@@ -13,7 +13,9 @@ public class AI extends Player {
 	private int turns = 0;
 	private int fitnesses = 0;
 	private int games = 0;
-	private boolean evolve;
+	private int wins = 0;
+	private int winsInARow = 0;
+	public boolean evolve;
 	Board board;
 
 	public AI(Board board, State state, boolean evolve) {
@@ -38,6 +40,7 @@ public class AI extends Player {
 	@Override
 	public void win(int inARow) {
 		end(inARow, 2);
+		wins++;
 	}
 	
 	public void end(int inARow, double outcome) {
@@ -46,12 +49,20 @@ public class AI extends Player {
 		double heuristic = heuristic(turns, inARow, outcome);
 		fitnesses += heuristic;
 		if (games >= 10) {
-			System.out.println("Average fitness for " + getTeam() + " is " + fitnesses);
-			synchronized (board.lock) {
-				board.lines.clear();
-				board.lines.add(getTeam() + " fitness: " + fitnesses);
+			if (wins >= 10) {
+				winsInARow++;
+				if (winsInARow >= 3 && getTeam() == State.O) {
+					if (Main.autostop) {
+						board.manager.stop = true;
+						evolve = false;
+					}
+					winsInARow = 0;
+					return;
+				}
 			}
-			if (fitnesses <= lastFitness) {
+			synchronized (board.lock) {
+			}
+			if (fitnesses < lastFitness) {
 				controller = lastState.clone();
 				if (evolve) {
 					controller.evolve();
@@ -60,24 +71,27 @@ public class AI extends Player {
 			} else {
 				lastState = controller.clone();
 				if (evolve) {
+					lastFitness = fitnesses;
 					controller.evolve();
 					Main.save();
 				}
 			}
-			lastFitness = fitnesses;
 			fitnesses = 0;
 			games = 0;
+			wins = 0;
 		}
 	}
 	
 	@Override
 	public void tie(int inARow) {
 		end(inARow, 1.5);
+		winsInARow = 0;
 	}
 	
 	@Override
 	public void loss(int inARow) {
 		end(inARow, 1);
+		winsInARow = 0;
 	}
 	
 	public static double heuristic(int turns, int inARow, double outcome) {
