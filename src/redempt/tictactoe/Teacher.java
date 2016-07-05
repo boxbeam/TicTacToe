@@ -25,12 +25,10 @@ public class Teacher extends Player {
 			int x = maker.turns[turnNum - 1].getX();
 			int y = maker.turns[turnNum - 1].getY();
 			if (maker.teaching.getPieces()[x][y] != maker.turns[turnNum - 1].getState()) {
-				if (getTeam() == State.O) {
-					maker.manager.winner = Winner.O;
-				} else {
-					maker.manager.winner = Winner.X;
-				}
+				maker.student.loss(maker.manager.player2inARow);
+				maker.manager.reset();
 				gameNum++;
+				System.out.println("Failure");
 			}
 		}
 		turnNum++;
@@ -40,20 +38,19 @@ public class Teacher extends Player {
 	@Override
 	public void win(int nil) {
 		maker.manager.stop = true;
+		System.out.println("win");
 	}
 	
 	@Override
 	public void tie(int nil) {
 		maker.manager.stop = true;
+		System.out.println("tie");
 	}
 	
 	@Override
 	public void loss(int nil) {
 		maker.manager.stop = true;
-	}
-	
-	public void end() {
-		maker.manager.stop = true;
+		System.out.println("loss");
 	}
 	
 }

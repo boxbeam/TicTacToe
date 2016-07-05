@@ -34,7 +34,7 @@ public class GameManager {
 					}
 					turn(false);
 					try {
-						Thread.sleep(0);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -70,7 +70,7 @@ public class GameManager {
 				player2.win(player2inARow);
 				player1.loss(player1inARow);
 			}
-			end();
+			reset();
 			return;
 		}
 		if (winner == Winner.O) {
@@ -81,13 +81,13 @@ public class GameManager {
 				player2.win(player2inARow);
 				player1.loss(player1inARow);
 			}
-			end();
+			reset();
 			return;
 		}
 		if (winner == Winner.TIE) {
 			player1.tie(player1inARow);
 			player2.tie(player2inARow);
-			end();
+			reset();
 			return;
 		}
 		Piece piece = null;
@@ -103,12 +103,12 @@ public class GameManager {
 			board.repaint();
 			winner = checkForWin(piece.getX(), piece.getY());
 		} else {
-			end();
+			reset();
 		}
 		turn = turn.getOpposite();
 	}
 	
-	public void end() {
+	public void reset() {
 		board.clear();
 		lastStarter = lastStarter.getOpposite();
 		turn = lastStarter;

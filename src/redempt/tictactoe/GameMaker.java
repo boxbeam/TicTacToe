@@ -57,6 +57,8 @@ public class GameMaker extends JFrame {
 					finished = true;
 					teaching.manager = manager;
 					AI player1 = new AI(teaching, State.O, true);
+					player1.board = teaching;
+					student = player1;
 					player1.controller = Main.o.controller.clone();
 					Teacher player2 = new Teacher(State.X, maker);
 					student = player1;
@@ -77,7 +79,7 @@ public class GameMaker extends JFrame {
 	}
 	
 	public void end() {
-		student = (AI) manager.player1;
+		
 		
 	}
 	

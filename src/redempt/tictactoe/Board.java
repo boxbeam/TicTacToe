@@ -22,6 +22,7 @@ public class Board extends JPanel implements Serializable {
 	}
 	
 	public void clear() {
+		pieces = new State[3][3];
 		for (int x = 0; x < 3; x++) {
 			pieces[x] = new State[3];
 			for (int y = 0; y < 3; y++) {
