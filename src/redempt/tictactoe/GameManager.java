@@ -10,7 +10,7 @@ public class GameManager {
 	Board board;
 	State turn = State.O;
 	State lastStarter = State.O;
-	private Winner winner = Winner.IN_PROGRESS;
+	public Winner winner = Winner.IN_PROGRESS;
 	int player1inARow = 0;
 	int player2inARow = 0;
 	boolean stop = false;

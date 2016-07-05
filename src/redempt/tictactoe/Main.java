@@ -231,6 +231,20 @@ public class Main {
 			
 		});
 		board.add(human);
+		JButton teach = new JButton();
+		teach.setSize(100, 50);
+		teach.setText("Teach");
+		teach.setVisible(true);
+		teach.setLocation(200, 350);
+		teach.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				new GameMaker();
+			}
+			
+		});
+		board.add(teach);
 		JCheckBox evolve = new JCheckBox();
 		evolve.setSize(100, 25);
 		evolve.setLocation(0, 350);
