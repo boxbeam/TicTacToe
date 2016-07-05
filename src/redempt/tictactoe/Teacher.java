@@ -33,6 +33,7 @@ public class Teacher extends Player {
 				gameNum++;
 			}
 		}
+		turnNum++;
 		return maker.turns[turnNum];
 	}
 	
@@ -48,6 +49,10 @@ public class Teacher extends Player {
 	
 	@Override
 	public void loss(int nil) {
+		maker.manager.stop = true;
+	}
+	
+	public void end() {
 		maker.manager.stop = true;
 	}
 	

@@ -15,6 +15,7 @@ public class GameMaker extends JFrame {
 	public boolean finished = false;
 	public State turn = State.O;
 	public Piece[] turns = new Piece[9];
+	public AI student;
 	public int turnNum = 0;
 	
 	public GameMaker() {
@@ -58,6 +59,7 @@ public class GameMaker extends JFrame {
 					AI player1 = new AI(teaching, State.O, true);
 					player1.controller = Main.o.controller.clone();
 					Teacher player2 = new Teacher(State.X, maker);
+					student = player1;
 					manager = new GameManager(teaching, player1, player2);
 					maker.remove(board);
 					maker.add(teaching);
@@ -72,6 +74,11 @@ public class GameMaker extends JFrame {
 		
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
+	}
+	
+	public void end() {
+		student = (AI) manager.player1;
+		
 	}
 	
 }
